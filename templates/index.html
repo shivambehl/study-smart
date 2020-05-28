@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script href="{{url_for('static', filename='dynamic_style.js')}}"></script>
+    <meta charset="UTF-8">
+
+    <title>Study Smart</title>
+</head>
+<body>
+
+
+    <h1>
+        Hello There, Get ready to study smart !
+    </h1>
+
+    {% for error in errors %}
+        <h4>{{ error }}</h4>
+    {% endfor %}
+
+    <div>
+        <p><textarea  name="textarea" form="textinput" placeholder="Paste Your Text Here" id="autoresizing"></textarea></p>
+        <form method="POST" action="." id = 'textinput'>
+            <!--<p><input name="text" /></p>-->
+            <p><input name ="submit_button" type="submit" value="learn" /></p>
+
+        </form>
+    </div>
+
+    {% if results  %}
+
+        <p>
+                <input type="submit" value="generate questions" />
+        </p>
+    {% endif %}
+
+
+    <!-- Extracted Information Table-->
+    <div>
+        {% if results %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Top Words</td>
+                        <td>{{ results['top_words'] }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Vocabulary</td>
+                        <td>{{ results['vocab'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Lexical Richness</td>
+                        <td>{{ results['lexical_richness']}}</td>
+                    </tr>
+                    <tr>
+                        <td>Average Word Length</td>
+                        <td>{{ results['average_length'] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    <!--End Extracted Information Table-->
+
+
+    {% if results %}
+    <div>
+        <h4>Questions to Practice - </h4>
+
+        <h3>Number of questions {{ results['questions']|length }}</h3>
+        {% for q in results['questions'] %}
+            <p>
+                {{ q.question }}<br/>
+                {% for o in q.options %}
+                    {{ o }}<br/>
+                {% endfor %}
+            </p>
+
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+
+
+
+</body>
+</html>
