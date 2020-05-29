@@ -4,7 +4,6 @@ from scripts.prep import *
 
 app = Flask(__name__)
 
-
 @app.route('/', methods=["GET", "POST"])
 def index():
 
@@ -19,6 +18,7 @@ def index():
                 # article = request.form['text']
                 article = request.form['textarea']
                 print(article)
+
             except:
                 errors.append("<p> Wrong Format, enter text !</p>")
 
@@ -29,14 +29,10 @@ def index():
                 results['lexical_richness'] = text.get_lexical_richness()
                 results['average_length'] = text.average_word_length()
                 results['questions'] = text.generate_questions()
+                # results = [top_words, vocab, lexical_richness, average_length]
 
-        if request.form['submit_button'] == 'generate questions':
-            pass
-            results['questions'] = text.generate_questions()
 
-        return render_template("index.html", errors=errors, results=results)
-
-            # results = [top_words, vocab, lexical_richness, average_length]
+        return render_template("index.html", errors=errors, results=results, text=text)
 
     return render_template("index.html", errors=errors, results=results)
 

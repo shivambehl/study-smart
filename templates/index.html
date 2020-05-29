@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <script href="{{url_for('static', filename='dynamic_style.js')}}"></script>
-    <meta charset="UTF-8">
+    <!--bootstrap
+    ------------------------------------->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!--bootstrap end-->
 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script   src="{{url_for('static', filename='dynamic_style.js')}}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Shivam Behl">
+    <!-- End Meta--
+    ------------------------------------>
     <title>Study Smart</title>
 </head>
-<body>
 
 
     <h1>
         Hello There, Get ready to study smart !
     </h1>
 
+    <div class="container-fluid">
+
+    <div class="row">
     {% for error in errors %}
         <h4>{{ error }}</h4>
     {% endfor %}
 
-    <div>
-        <p><textarea  name="textarea" form="textinput" placeholder="Paste Your Text Here" id="autoresizing"></textarea></p>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <p><textarea  name="textarea" form="textinput" placeholder="Paste Your Text Here"></textarea></p>
         <form method="POST" action="." id = 'textinput'>
             <!--<p><input name="text" /></p>-->
-            <p><input name ="submit_button" type="submit" value="learn" /></p>
-
+            <p><input name="submit_button" type="submit" value="learn" class="btn btn-secondary btn-lg active" /></p>
         </form>
+        {% if results %}
+                <p><button class="btn btn-secondary btn-lg active" onclick="showQuestions()">Show Me Questions !</button></p>
+        {% endif %}
     </div>
 
-    {% if results  %}
 
-        <p>
-                <input type="submit" value="generate questions" />
-        </p>
-    {% endif %}
-
-
-    <!-- Extracted Information Table-->
-    <div>
+    <!-- Extracted Information Table--
+    --------------------------------------------->
+    <div class = "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
         {% if results %}
-            <table>
-                <thead>
+            <table class = "table">
+                <thead class="thead-dark">
                     <tr>
                         <th>Feature</th>
                         <th>Information</th>
@@ -69,26 +75,49 @@
     </div>
     <!--End Extracted Information Table-->
 
-
-    {% if results %}
-    <div>
-        <h4>Questions to Practice - </h4>
-
-        <h3>Number of questions {{ results['questions']|length }}</h3>
-        {% for q in results['questions'] %}
-            <p>
-                {{ q.question }}<br/>
-                {% for o in q.options %}
-                    {{ o }}<br/>
-                {% endfor %}
-            </p>
-
-        {% endfor %}
     </div>
+    <!-- row end-->
+    </div>
+
+
+
+    <!--Questions--
+    -------------------------------------------->
+    {% if results %}
+        <div id="myDIV">
+        <div class="container-fluid">
+
+            <p>Number of questions {{ results['questions']|length }}
+                <br>
+            </p>
+            {% for q in results['questions'] %}
+                <p>
+                    <b>Que.  </b>{{ q.question }}<br>
+                    {% for o in q.options %}
+                        {% if o == q.ans %}
+                            <input class="options" type="submit" name="button" onclick="rightans();" value="{{ o }}"/>
+                        {% else %}
+                            <input class="options" type="submit" name="button" onclick="wrongans();" value="{{ o }}"/>
+                        {% endif %}
+                        <br>
+
+                    {% endfor %}
+                <br>
+                </p>
+            {% endfor %}
+        <input class="options final" type="submit" name="button" onclick="printScore();" value="Show My Score" />
+        </div>
+        </div>
     {% endif %}
 
+    <!--End Questions-->
 
 
+    <!--Bootstrap script files--
+    ---------------------------------------->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
 
 </body>
