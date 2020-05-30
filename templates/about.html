@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--bootstrap
+    ------------------------------------->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!--bootstrap end-->
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script   src="{{url_for('static', filename='dynamic_style.js')}}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Shivam Behl">
+    <!-- End Meta--
+    ------------------------------------>
+    <title>Study Smart</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row" style="margin: 10%">
+        <h3>Hello, this is study easy.</h3>
+        <div>
+            <p>
+                This is study easy, a tool to help you study effectively.
+                <br>It was made as a micro project for NLP course at Thapar Institute, Patiala by Shivam Behl.
+                <br>This tools helps you optimise your study sessions by helping you recognize important terms and parts of the content
+                and help you revise with the help of practice questions.
+                <br>For Question Generation, I have used Part of Speech tagging and made fill ups. While making fill ups, I priority was given to common nouns,
+                 however if proper nouns are not available in sentence, the system will use proper nouns.
+                <br>For making options, synonyms were retrieved using wordnet.
+                <br>Backend of the website is developed in Flask and frontend using HTML, CSS and Javascript.
+                <br>
+                <br>This Website is built in a very short period of time, and I am positive about improving it.
+                <br>Any Idea regarding it will be appreciated.
+                <br>Contact - shivambehl123@gmail.com
+            </p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
